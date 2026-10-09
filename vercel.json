@@ -1,0 +1,71 @@
+{
+  "rewrites": [
+    {
+      "source": "/quran/:surahNumber",
+      "destination": "/quran/:surahNumber/index.html"
+    },
+    {
+      "source": "/quran",
+      "destination": "/quran/index.html"
+    },
+    {
+      "source": "/hadith",
+      "destination": "/hadith/index.html"
+    },
+    {
+      "source": "/dua",
+      "destination": "/dua/index.html"
+    },
+    {
+      "source": "/azkar",
+      "destination": "/azkar/index.html"
+    },
+    {
+      "source": "/prayer",
+      "destination": "/prayer/index.html"
+    },
+    {
+      "source": "/tafseer",
+      "destination": "/tafseer/index.html"
+    },
+    {
+      "source": "/favorites",
+      "destination": "/favorites/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

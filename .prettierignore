@@ -1,0 +1,9 @@
+attached_assets/
+legacy-index.html
+CSS/
+Images/
+JS/
+pages/
+node_modules/
+dist/
+coverage/

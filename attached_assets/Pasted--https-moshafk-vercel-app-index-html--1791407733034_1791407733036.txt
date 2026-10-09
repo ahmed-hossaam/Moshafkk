@@ -1,0 +1,1300 @@
+أريد منك إعادة بناء وتطوير مشروع الويب الموجود حاليًا في:
+
+https://moshafk.vercel.app/index.html
+
+اسم المشروع: **مُصْحَفُكَ — MosHafK**
+
+المشروع عبارة عن موقع إسلامي كنت قد بنيته سابقًا باستخدام:
+
+* HTML
+* CSS
+* JavaScript
+
+وكان يحتوي/يهدف إلى تقديم:
+
+* القرآن الكريم
+* الأحاديث
+* الأدعية
+* الأذكار
+* مواقيت الصلاة
+* وأي محتوى إسلامي موجود حاليًا داخل المشروع
+
+أريد منك تحويل المشروع إلى مشروع حديث واحترافي جدًا باستخدام:
+
+* React
+* TypeScript
+* Tailwind CSS
+* Vite أو Next.js إذا رأيت أن Next.js أفضل للـSEO والأداء
+* React Router أو Next.js App Router حسب الـframework الذي تختاره
+* Lucide React أو مكتبة Icons خفيفة واحترافية
+* ESLint
+* Prettier
+
+لا أريد مجرد تحويل HTML إلى JSX.
+
+أريد **إعادة تصميم وإعادة هندسة كاملة للمشروع** مع الحفاظ على فكرة وهوية "مُصْحَفُكَ"، وجعل النتيجة تبدو كمشروع احترافي حقيقي يمكن وضعه في Portfolio أو استخدامه فعليًا.
+
+---
+
+# 1. ابدأ بتحليل المشروع الحالي
+
+قبل أن تعدل أي شيء:
+
+1. افحص جميع ملفات المشروع الحالية.
+2. افهم الـHTML والـCSS والـJavaScript الحالي.
+3. اكتشف جميع الصفحات والـfeatures الموجودة.
+4. اكتشف الـAPIs المستخدمة حاليًا.
+5. اكتشف لماذا الـAPI أو البيانات لا تظهر حاليًا.
+6. افحص Network requests وAPI endpoints وresponse formats.
+7. افحص أي errors أو deprecated endpoints.
+8. لا تحذف أي feature موجودة بدون سبب.
+9. احتفظ بالمحتوى الموجود حاليًا قدر الإمكان.
+10. إذا كان الـAPI القديم غير موثوق أو متوقف، لا تجعل التطبيق يعتمد عليه بشكل كامل.
+
+بعد التحليل، نفّذ إعادة البناء.
+
+---
+
+# 2. Architecture
+
+أنشئ Architecture نظيفة وقابلة للتوسع.
+
+استخدم Component-based architecture.
+
+مثال تقريبي:
+
+src/
+components/
+layout/
+navigation/
+quran/
+hadith/
+dua/
+azkar/
+prayer/
+common/
+
+pages/
+Home/
+Quran/
+Hadith/
+Dua/
+Azkar/
+PrayerTimes/
+About/
+
+hooks/
+services/
+api/
+data/
+utils/
+types/
+constants/
+assets/
+
+اجعل كل component مسؤولًا عن شيء واضح.
+
+تجنب:
+
+* Huge components
+* duplicated code
+* inline styles
+* hardcoded repeated values
+* unnecessary state
+* deeply nested components
+* unnecessary dependencies
+
+استخدم reusable components.
+
+---
+
+# 3. Islamic Content Reliability — مهم جدًا
+
+هذه نقطة أساسية.
+
+لا أريد أن يصبح التطبيق فارغًا إذا توقفت API.
+
+صمّم Data Layer احترافي:
+
+API → Cache → Local fallback
+
+بحيث:
+
+1. حاول الحصول على البيانات من API.
+2. إذا نجح الطلب، اعرض البيانات واحفظ نسخة مناسبة في cache.
+3. إذا فشل الـAPI:
+
+   * استخدم cached data.
+4. إذا لم توجد cached data:
+
+   * استخدم local static data عند الإمكان.
+5. اعرض للمستخدم حالة واضحة إذا كانت البيانات غير متاحة.
+
+لا تجعل UI يعرف تفاصيل الـAPI.
+
+استخدم services مثل:
+
+quranService
+hadithService
+duaService
+azkarService
+prayerService
+
+واجعل التعامل مع API منفصلًا عن الـcomponents.
+
+---
+
+# 4. Quran
+
+أنشئ تجربة قراءة قرآن احترافية.
+
+يجب أن يكون هناك:
+
+* قائمة السور
+* البحث عن سورة
+* رقم السورة
+* اسم السورة
+* عدد الآيات
+* مكية / مدنية إن كانت البيانات متوفرة
+* صفحة قراءة السورة
+* عرض الآيات بطريقة مريحة جدًا
+* RTL بشكل صحيح
+* Typography مناسب للقرآن العربي
+* تغيير حجم الخط
+* Dark mode
+* Light mode
+* حفظ آخر موضع قراءة
+* Bookmark للآيات إن أمكن
+* Copy آية
+* Share آية
+* رابط مباشر للسورة
+* Loading states
+* Empty states
+* Error states
+
+لا تستخدم animations مزعجة أثناء القراءة.
+
+الهدف الأساسي هو:
+**الراحة + التركيز + سهولة القراءة.**
+
+---
+
+# 5. Hadith
+
+أنشئ قسم أحاديث احترافي:
+
+* قائمة الأحاديث
+* البحث
+* تصنيف/فلترة إذا كانت البيانات تسمح
+* صفحة تفاصيل الحديث
+* المصدر/reference
+* Copy
+* Share
+* Bookmark إن أمكن
+* Loading state
+* Error state
+* Empty state
+
+مهم جدًا:
+
+لا تقم باختلاق أحاديث أو مراجع.
+
+لا تعدّل النصوص الدينية أو تعيد صياغتها.
+
+اعرض النص كما يأتي من مصدر موثوق.
+
+---
+
+# 6. Duas
+
+قسم الأدعية:
+
+* Categories
+* قائمة الأدعية
+* صفحة الدعاء
+* المصدر/reference إذا كان متوفرًا
+* Copy
+* Share
+* Bookmark
+* Search
+* Responsive cards
+
+أضف categories مفيدة مثل:
+
+* Daily Duas
+* Morning
+* Evening
+* Travel
+* Food
+* Protection
+* Forgiveness
+* Anxiety / Hardship
+* Before Sleep
+
+لكن لا تضف نصوصًا دينية من عندك.
+
+إذا لم توجد البيانات الأصلية لبعض التصنيفات، لا تخترع محتوى.
+
+---
+
+# 7. Azkar
+
+قسم الأذكار يجب أن يكون من أفضل أجزاء الموقع.
+
+اعمل:
+
+* Morning Azkar
+* Evening Azkar
+* After Prayer
+* Sleep
+* Wake Up
+* General Azkar
+* Categories
+
+وأضف UX مناسب للقراءة والتكرار.
+
+كل ذكر يمكن أن يحتوي على:
+
+* النص
+* عدد التكرار
+* زر +1
+* Progress
+* Reset
+* Reference
+* Copy
+* Share
+
+مثال:
+
+"3 / 33"
+
+مع progress indicator واضح.
+
+لكن لا تجعل التصميم يشبه لعبة أو يشتت المستخدم.
+
+---
+
+# 8. Prayer Times
+
+حافظ على مواقيت الصلاة الموجودة.
+
+لكن حسّنها بشكل كبير.
+
+اعرض:
+
+* Fajr
+* Sunrise
+* Dhuhr
+* Asr
+* Maghrib
+* Isha
+
+وأضف:
+
+* Current prayer
+* Next prayer
+* Countdown
+* Hijri date إذا أمكن
+* Gregorian date
+* Location
+* Calculation method إن كانت متاحة
+
+اجعل التعامل مع location privacy-friendly.
+
+لا تطلب Location permission بدون سبب.
+
+إذا لم يستطع المستخدم السماح بالموقع:
+
+* وفر اختيار المدينة يدويًا.
+
+---
+
+# 9. Homepage
+
+أريد Homepage حديثة جدًا.
+
+Hero section هادئة وليست مبالغًا فيها.
+
+مثال:
+
+مُصْحَفُكَ
+
+"رفيقك اليومي للقرآن والذكر"
+
+ثم CTA واضح:
+
+[اقرأ القرآن]
+[أذكار اليوم]
+
+ثم Quick Access:
+
+📖 القرآن
+📜 الأحاديث
+🤲 الأدعية
+📿 الأذكار
+🕌 مواقيت الصلاة
+
+ثم قسم:
+
+"وردك اليوم"
+
+ثم Prayer Times.
+
+ثم Daily Ayah / Hadith إذا كان مصدر البيانات موثوقًا.
+
+ثم Footer.
+
+---
+
+# 10. Design System
+
+أريد Design System حقيقي وليس ألوانًا عشوائية.
+
+استخدم Islamic-inspired modern design.
+
+الـvisual style يجب أن يكون:
+
+* Elegant
+* Calm
+* Minimal
+* Premium
+* Modern
+* Spiritual
+* Accessible
+
+تجنب:
+
+* Neon colors
+* gradients مبالغ فيها
+* glassmorphism مبالغ فيه
+* shadows ضخمة
+* animations كثيرة
+* ازدحام العناصر
+* cards لكل شيء بدون داعي
+
+اقترح palette أساسية قريبة من:
+
+Primary:
+Deep Emerald / Islamic Green
+
+Secondary:
+Warm Gold
+
+Background:
+Off-white / Cream
+
+Dark:
+Deep charcoal / dark emerald
+
+لكن اختر القيم النهائية بعناية وعرّفها كـdesign tokens.
+
+مثال:
+
+--color-primary
+--color-primary-hover
+--color-secondary
+--color-background
+--color-surface
+--color-text
+--color-muted
+--color-border
+--color-success
+--color-error
+
+يجب أن تكون جميع الصفحات متناسقة معها.
+
+---
+
+# 11. Typography
+
+اهتم جدًا بالـTypography.
+
+لأن المشروع عربي بالأساس.
+
+استخدم خط عربي احترافي وواضح.
+
+مثلاً:
+
+* Cairo
+* Noto Kufi Arabic
+* IBM Plex Sans Arabic
+* أو خط مناسب آخر
+
+وللقرآن نفسه استخدم Arabic Quran font مناسب إذا كان متاحًا ومسموحًا باستخدامه.
+
+اهتم بـ:
+
+* font sizes
+* line height
+* letter spacing
+* readability
+* RTL
+* responsive typography
+
+خصوصًا نصوص القرآن والأحاديث.
+
+---
+
+# 12. Responsive Design
+
+الموقع يجب أن يكون Responsive بالكامل.
+
+اختبر:
+
+320px
+375px
+390px
+430px
+768px
+1024px
+1280px
+1440px
+1920px
+
+Mobile-first.
+
+لا أريد:
+
+* horizontal scrolling
+* text overflow
+* broken cards
+* buttons خارج الشاشة
+* navbar مكسورة
+* huge whitespace غير ضروري
+
+على الموبايل:
+
+* Navigation سهلة
+* Buttons كبيرة بما يكفي للمس
+* Reading experience ممتازة
+* Cards تتكيف مع الشاشة
+
+---
+
+# 13. Navigation
+
+أنشئ Navigation احترافية.
+
+Desktop:
+
+* Logo
+* الرئيسية
+* القرآن
+* الأحاديث
+* الأدعية
+* الأذكار
+* مواقيت الصلاة
+
+Mobile:
+
+* Hamburger menu أو Bottom navigation حسب ما تراه أفضل.
+
+اجعل الصفحة الحالية واضحة Active state.
+
+لا تجعل الـnavigation مزدحمة.
+
+---
+
+# 14. UX
+
+طبّق أساسيات UX بشكل احترافي:
+
+* Hover states
+* Active states
+* Focus states
+* Loading states
+* Skeleton loaders
+* Empty states
+* Error states
+* Success feedback
+* Toasts عند الحاجة
+* Confirmation عند العمليات المهمة
+* Scroll to top
+* Breadcrumbs عندما تكون مفيدة
+* Back button في صفحات التفاصيل
+
+اجعل كل interaction يعطي feedback واضح.
+
+---
+
+# 15. Animations
+
+استخدم animations بسيطة وهادئة.
+
+مثلاً:
+
+* fade
+* slide
+* scale بسيط
+* hover transitions
+
+لكن:
+
+لا تستخدم animation لكل عنصر.
+
+لا تستخدم animation تؤثر على القراءة.
+
+احترم:
+
+prefers-reduced-motion
+
+---
+
+# 16. Dark Mode
+
+أضف Dark Mode حقيقي.
+
+لا تجعل Dark Mode مجرد قلب ألوان.
+
+يجب تصميمه كـtheme منفصل.
+
+احفظ اختيار المستخدم في localStorage.
+
+ويفضل دعم:
+
+System
+Light
+Dark
+
+إذا كان ذلك مناسبًا.
+
+---
+
+# 17. Search
+
+أنشئ Search experience جيدة.
+
+يجب أن تكون:
+
+* Fast
+* Keyboard friendly
+* Mobile friendly
+* Debounced إذا كان البحث API
+* واضحة النتائج
+* Empty state عند عدم وجود نتائج
+
+لا ترسل API request مع كل حرف بدون debounce/caching عند الحاجة.
+
+---
+
+# 18. Accessibility — مهم جدًا
+
+طبّق WCAG principles قدر الإمكان.
+
+يجب أن يكون:
+
+* Semantic HTML
+* Proper headings hierarchy
+* Labels للأزرار
+* aria-label عند الحاجة
+* Keyboard navigation
+* Visible focus states
+* Contrast مناسب
+* Screen reader friendly
+* Buttons حقيقية وليست divs
+* Links حقيقية وليست clickable divs
+* Dialogs accessible
+
+اختبر باستخدام keyboard فقط.
+
+---
+
+# 19. SEO
+
+أريد SEO احترافي.
+
+لكل صفحة:
+
+* unique title
+* meta description
+* canonical URL
+* Open Graph
+* Twitter/X card
+* semantic HTML
+* proper headings
+
+أنشئ:
+
+robots.txt
+sitemap.xml
+
+إذا استخدمت Next.js:
+استخدم Metadata API بشكل صحيح.
+
+إذا استخدمت React/Vite:
+استخدم الحل المناسب لإدارة metadata وSEO.
+
+أضف structured data عندما يكون مناسبًا، مثل:
+
+WebSite
+WebApplication
+BreadcrumbList
+
+ولا تضف structured data غير صحيحة.
+
+---
+
+# 20. Performance
+
+اهتم بالأداء من البداية.
+
+طبّق:
+
+* Lazy loading
+* Code splitting
+* Image optimization
+* Font optimization
+* Minimize bundle size
+* Avoid unnecessary dependencies
+* Memoization فقط عندما تكون مفيدة
+* Avoid unnecessary re-renders
+* API caching
+* Request deduplication
+* Pagination أو virtualization للبيانات الكبيرة عند الحاجة
+
+لا تحمل كل البيانات الضخمة في أول page load بدون داعٍ.
+
+الهدف:
+
+Fast First Load
+Fast Navigation
+Smooth scrolling
+
+---
+
+# 21. Error Handling
+
+كل API request يجب أن يكون له:
+
+Loading
+Success
+Empty
+Error
+
+لا تستخدم:
+
+console.log فقط لمعالجة errors.
+
+اعرض للمستخدم رسالة مفهومة.
+
+مثلاً:
+
+"تعذر تحميل البيانات حاليًا."
+
+مع:
+
+[إعادة المحاولة]
+
+ولا تعرض technical stack traces للمستخدم.
+
+---
+
+# 22. Security
+
+طبّق security best practices.
+
+خصوصًا:
+
+* لا تضع API secrets داخل frontend
+* لا تضع private keys في Git
+* استخدم environment variables
+* Validate external API responses
+* Sanitize أي HTML يأتي من مصادر خارجية
+* لا تستخدم dangerouslySetInnerHTML إلا عند الضرورة القصوى وبعد sanitization
+* لا تثق في user input
+* لا expose sensitive configuration
+* لا تستخدم eval
+* لا تستخدم unsafe dynamic code execution
+* أضف security headers إن كان الـdeployment يسمح بذلك
+
+إذا كان هناك external API:
+اجعل الـAPI layer قابلة للتغيير بسهولة.
+
+---
+
+# 23. Offline / Resilience
+
+هذه من أهم النقاط.
+
+الموقع يجب ألا يعتمد بشكل كامل على الإنترنت.
+
+للمحتوى الثابت مثل:
+
+* القرآن
+* الأذكار
+* الأدعية
+
+يفضل استخدام local JSON/static data إذا كان حجم البيانات مناسبًا ومصدرها موثوقًا.
+
+أما البيانات الديناميكية مثل:
+
+* Prayer times
+* بعض APIs
+
+استخدم API + cache + fallback.
+
+إذا كان من الممكن تحويل التطبيق إلى PWA بشكل نظيف، فقم بذلك.
+
+أضف:
+
+* Service Worker
+* Offline fallback
+* caching strategy
+
+لكن لا تجعل PWA تزيد التعقيد بدون فائدة حقيقية.
+
+---
+
+# 24. PWA
+
+إذا رأيت أن المشروع مناسب:
+
+أضف PWA احترافية:
+
+* manifest
+* icons
+* installable
+* offline shell
+* caching
+
+ولا تضف PWA بشكل يسبب مشاكل في deployment أو caching للبيانات الحديثة.
+
+---
+
+# 25. Share Features
+
+أضف إمكانية:
+
+* Copy
+* Native Web Share API
+
+مثلاً:
+
+Share Ayah
+Share Hadith
+Share Dua
+Share Dhikr
+
+إذا لم يكن Web Share API متوفرًا:
+استخدم fallback مناسب.
+
+---
+
+# 26. Favorites / Bookmarks
+
+إذا كانت مناسبة للـUX:
+
+أضف LocalStorage-based:
+
+* Favorite Ayat
+* Favorite Hadith
+* Favorite Dua
+* Favorite Azkar
+
+بدون login.
+
+اجعل البيانات محفوظة محليًا.
+
+---
+
+# 27. Scroll To Top
+
+أضف زر:
+
+Scroll to Top
+
+يظهر بعد scroll معين.
+
+يجب أن يكون:
+
+* accessible
+* mobile friendly
+* unobtrusive
+
+---
+
+# 28. Footer
+
+Footer احترافي يحتوي على:
+
+* اسم الموقع
+* وصف قصير
+* Navigation
+* ربما رابط GitHub إذا كان مناسبًا
+* Privacy
+* About
+
+مع رسالة:
+
+"هذا الموقع صدقة جارية..."
+
+لكن لا تجعل الـfooter مزدحمًا.
+
+---
+
+# 29. About / Project Identity
+
+حافظ على فكرة أن المشروع:
+
+"صدقة جارية"
+
+ولكن اجعلها بشكل محترم وبسيط.
+
+لا تستخدم أي تصميم مبالغ فيه.
+
+---
+
+# 30. Code Quality
+
+أريد Clean Code حقيقي.
+
+Rules:
+
+* TypeScript strict mode
+* Meaningful names
+* Small components
+* Single responsibility
+* Reusable hooks
+* Reusable UI components
+* No duplicated logic
+* No magic numbers
+* No unnecessary comments
+* Comments فقط عندما تشرح WHY وليس WHAT
+* No dead code
+* No unused imports
+* No unused variables
+* No unnecessary dependencies
+
+استخدم:
+
+ESLint
+Prettier
+
+واجعل:
+
+npm run lint
+
+و
+
+npm run build
+
+يمرّان بدون errors.
+
+---
+
+# 31. TypeScript
+
+لا تستخدم:
+
+any
+
+إلا في حالات نادرة جدًا ومبررة.
+
+أنشئ interfaces/types للبيانات:
+
+Quran
+Surah
+Ayah
+Hadith
+Dua
+Dhikr
+PrayerTime
+ApiResponse
+
+واعمل type-safe API layer.
+
+---
+
+# 32. API Debugging
+
+قبل أن تقول إن الـAPI لا تعمل:
+
+افحص:
+
+* endpoint
+* HTTP method
+* query parameters
+* headers
+* CORS
+* response status
+* response body
+* rate limits
+* API availability
+* API schema
+
+إذا كانت المشكلة CORS:
+لا تعمل workaround insecure.
+
+استخدم backend/server-side proxy إذا كان مناسبًا.
+
+إذا كان API deprecated:
+استبدله بمصدر موثوق.
+
+لكن لا تستبدل source الديني بمصدر غير موثوق.
+
+---
+
+# 33. Data Integrity
+
+هذه نقطة حساسة جدًا.
+
+لأن الموقع يحتوي على محتوى ديني:
+
+لا تقم أبدًا بـ:
+
+* اختراع آيات
+* تعديل آيات
+* اختراع أحاديث
+* اختراع مراجع
+* اختراع أدعية ونسبتها للقرآن أو السنة
+* paraphrasing للنصوص الدينية على أنها النص الأصلي
+
+إذا وجدت بيانات غير موثوقة:
+ضعها جانبًا بدلًا من اختلاق بديل.
+
+احتفظ بالـsource/reference عندما يكون متاحًا.
+
+---
+
+# 34. Internationalization
+
+حتى لو كان الموقع عربيًا الآن، اجعل الـarchitecture قابلة لدعم English مستقبلًا.
+
+يجب أن يكون RTL/LTR architecture نظيفًا.
+
+لا تكتب layouts تعتمد على:
+
+margin-left
+
+بشكل عشوائي.
+
+استخدم logical properties عندما يكون مناسبًا.
+
+---
+
+# 35. Mobile UX
+
+على الموبايل، الأولوية:
+
+1. القرآن
+2. الأذكار
+3. الأدعية
+4. الأحاديث
+5. الصلاة
+
+اجعل الوصول لهذه الأقسام سريعًا جدًا.
+
+Buttons يجب أن تكون touch-friendly.
+
+---
+
+# 36. Visual Polish
+
+أريد منك أن تتعامل مع المشروع كأنك:
+
+Senior Frontend Engineer
++
+Senior UI/UX Designer
+
+اهتم بالتفاصيل الصغيرة:
+
+* consistent border radius
+* consistent spacing
+* shadows
+* hover transitions
+* icon sizes
+* button heights
+* typography scale
+* card hierarchy
+* section spacing
+* empty states
+* loading states
+* error states
+
+لا تجعل كل شيء Card.
+
+استخدم visual hierarchy.
+
+---
+
+# 37. Avoid Overengineering
+
+لا تضف:
+
+Redux
+Zustand
+React Query
+Framer Motion
+وغيرها
+
+لمجرد استخدامها.
+
+أضف أي library فقط إذا كانت تحل مشكلة حقيقية.
+
+إذا كان المشروع يستطيع العمل بدونها، لا تضفها.
+
+---
+
+# 38. Deployment
+
+المشروع يجب أن يعمل بشكل ممتاز على Vercel.
+
+تأكد من:
+
+* production build
+* environment variables
+* routing
+* SPA fallback إذا كنت تستخدم Vite
+* security headers
+* caching
+* correct asset paths
+
+---
+
+# 39. Testing
+
+أضف على الأقل:
+
+* Unit tests للأجزاء المهمة
+* Tests للـservices
+* Tests للـcritical UI behavior
+
+إذا كان مناسبًا:
+استخدم Vitest + React Testing Library.
+
+واختبر خصوصًا:
+
+* API failure
+* empty data
+* loading
+* search
+* bookmarks
+* theme
+* responsive navigation
+
+---
+
+# 40. Final QA
+
+قبل إنهاء المهمة:
+
+شغّل:
+
+npm install
+npm run lint
+npm run build
+
+ثم اختبر التطبيق فعليًا.
+
+تأكد من:
+
+* No console errors
+* No broken links
+* No missing images
+* No API failures غير معالجة
+* No horizontal overflow
+* No layout breaking
+* Mobile works
+* Desktop works
+* Dark mode works
+* RTL works
+* Keyboard navigation works
+
+---
+
+# 41. Lighthouse / Web Vitals
+
+حسّن المشروع للوصول إلى أعلى نتائج ممكنة في:
+
+Performance
+Accessibility
+Best Practices
+SEO
+
+خصوصًا:
+
+LCP
+CLS
+INP
+
+لا تعمل hacks للحصول على score مرتفع فقط.
+
+الأولوية لتجربة المستخدم الحقيقية.
+
+---
+
+# 42. Visual Direction
+
+التصميم النهائي يجب أن يشعر المستخدم بأنه:
+
+"مصحف / Islamic companion website"
+
+وليس:
+
+"Dashboard"
+
+ولا:
+
+"Admin panel"
+
+ولا:
+
+"Template من Tailwind"
+
+أريد تصميمًا له شخصية وهوية.
+
+---
+
+# 43. Important: Don't Destroy Existing Work
+
+قبل إعادة الكتابة:
+
+افهم المشروع القديم.
+
+استخرج منه:
+
+* المحتوى
+* الـfeatures
+* الـAPIs
+* الـassets
+* الـlogic المفيد
+
+ثم أعد بناءه بطريقة حديثة.
+
+لا تحذف شيء لمجرد أنك تريد clean code.
+
+إذا وجدت feature قديمة سيئة:
+قيّمها أولًا ثم حسّنها.
+
+---
+
+# 44. Deliverables
+
+في النهاية أريد:
+
+1. مشروع React/TypeScript/Tailwind كامل.
+2. UI حديثة جدًا.
+3. Responsive بالكامل.
+4. Dark/Light mode.
+5. Quran section.
+6. Hadith section.
+7. Dua section.
+8. Azkar section.
+9. Prayer Times.
+10. Search.
+11. Bookmark/Favorites إن كانت مناسبة.
+12. Copy/Share.
+13. Scroll to top.
+14. Loading/Error/Empty states.
+15. Offline/cache fallback.
+16. SEO.
+17. Accessibility.
+18. Security.
+19. Performance optimization.
+20. Clean Architecture.
+21. Clean Code.
+22. README احترافي.
+23. `.env.example` إذا كان هناك environment variables.
+24. Proper deployment configuration for Vercel.
+
+---
+
+# 45. README
+
+اكتب README احترافي يحتوي على:
+
+* Project overview
+* Features
+* Tech stack
+* Installation
+* Development
+* Environment variables
+* API configuration
+* Build
+* Deployment
+* Architecture overview
+* Data sources
+* Offline strategy
+* Security notes
+* Accessibility
+* SEO
+* Contribution guidelines
+
+---
+
+# 46. أهم قاعدة
+
+لا أريد منك أن تكتفي بقول:
+
+"تم تحويل المشروع إلى React."
+
+أريد Production-quality result.
+
+إذا وجدت شيئًا في المشروع الحالي يمنع الوصول للجودة المطلوبة، أصلحه.
+
+إذا كان هناك قرار تقني أفضل من المطلوب هنا، استخدمه، لكن اشرح لي لماذا.
+
+إذا كان هناك feature غير مناسبة أو dependency غير ضرورية، لا تضفها.
+
+إذا كانت هناك API غير موثوقة، استبدلها أو أنشئ fallback architecture.
+
+إذا كانت البيانات الدينية لا يمكن الحصول عليها بشكل موثوق من API، استخدم مصدرًا محليًا موثوقًا بدلًا من جعل الصفحة فارغة.
+
+---
+
+# 47. لا تتوقف عند أول مشكلة
+
+إذا واجهت:
+
+* API failure
+* CORS
+* build error
+* dependency conflict
+* TypeScript error
+* routing issue
+* deployment issue
+
+قم بتشخيص المشكلة وحلها.
+
+لا تكتفِ بوصف المشكلة.
+
+---
+
+# 48. Final instruction
+
+نفّذ المشروع خطوة بخطوة:
+
+1. Analyze
+2. Plan architecture
+3. Setup React + TypeScript + Tailwind
+4. Migrate content/data
+5. Build design system
+6. Build layout/navigation
+7. Build pages
+8. Build API/data layer
+9. Add caching/fallback
+10. Add UX features
+11. Add accessibility
+12. Add SEO
+13. Optimize performance
+14. Security review
+15. Test
+16. Build
+17. Final polish
+
+وفي النهاية أعطني تقريرًا مختصرًا يوضح:
+
+* ما الذي تم تغييره
+* ما المشاكل التي كانت موجودة
+* كيف تم حل مشكلة الـAPI
+* ما الـAPIs/data sources المستخدمة
+* ما الـfeatures الجديدة
+* كيف تم تحسين performance
+* كيف تم تحسين SEO
+* كيف تم تحسين accessibility
+* كيف تم تحسين security
+* كيفية تشغيل المشروع
+* كيفية deploy على Vercel
+* أي limitations ما زالت موجودة
+
+**Do not give me a superficial redesign. Build the complete, polished, production-ready version.**

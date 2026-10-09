@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://moshafk.vercel.app/sitemap.xml

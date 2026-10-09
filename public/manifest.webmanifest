@@ -1,0 +1,19 @@
+{
+  "name": "مُصْحَفُكَ",
+  "short_name": "مُصْحَفُكَ",
+  "description": "رفيقك اليومي للقرآن والذكر",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f7f2",
+  "theme_color": "#0c493b",
+  "icons": [
+    {
+      "src": "/moshafk.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
